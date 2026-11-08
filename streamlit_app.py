@@ -1237,7 +1237,7 @@ elif access_code == "amungusgame1":
     """
     st.components.v1.html(minecraft_link_button, height=90)
 
-    elif access_code == "amungusgame2":
+elif access_code == "amungusgame2":
     # 1. Custom HTML for the Eaglercraft landing screen
     minecraft_html = """<!DOCTYPE html>
 <html lang="en-us">
