@@ -1,25 +1,8 @@
-# 🎈 Blank app template
+Wazzup!
 
-A simple Streamlit app template for you to modify!
+Here is a calculator based on the Desmos testing calculator
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
-
-### How to run it on your own machine
-
-Prerequisite: install `uv` if you don't already have it.
-
+The secret access codes are somewhere, get looken
 ```
-$ curl -LsSf https://astral.sh/uv/install.sh | sh
+Check out the credits
 ```
-
-1. Sync the dependencies
-
-   ```
-   $ uv sync
-   ```
-
-2. Run the app
-
-   ```
-   $ uv run streamlit run streamlit_app.py
-   ```
