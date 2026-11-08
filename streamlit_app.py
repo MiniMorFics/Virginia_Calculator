@@ -647,7 +647,8 @@ elif access_code == "ilikeminecraft":
 </head>
 <body>
 
-    <div class="loading"><style>body{background-color:black !important; text-align: center;} @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.spin-img{animation:spin 3s linear infinite}</style><h1 style="font-family: 'Arial', monospace; color: blue;"> Loading pibbleclientv2.2...</h1> <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" alt="pibbe" width="50" class="spin-img"> <h3 style="font-family: 'Comic Sans MS', Comic Sans; color: white;">Will take a little while, please be paicient</h3><p style=" color: #b0b0b0">Made by epicpibble-4 on gh + subscribe to epicpibble-4 on Youtube if you can! Youtube chanal: https://www.youtube.com/@epicpibble_4</p></div>
+    <div class="loading"><style>body{background-color:black !important; text-align: center;} @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.spin-img{animation:spin 3s linear infinite}</style><h1 style="font-family: 'Arial', monospace; color: blue;"> Loading pibbleclientv2.2...</h1> <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" alt="pibbe" width="50" class="spin-img"> <h3 style="font-family: 'Comic Sans MS', Comic Sans; color: white;">Will take a little while, please be paicient</h3><p style=" color: #b0b0b0">Made by epicpibble-4 on gh + subscribe to epicpibble-4 on Youtube if you can! Youtube chanal: <a href="https://www.youtube.com/@epicpibble_4" target="_blank" style="color: #1a73e8; text-decoration: underline;">https://www.youtube.com/@epicpibble_4</a></p></div>
+
     
     <script>
         // Define the title and favicon URL you want to enforce permanently
