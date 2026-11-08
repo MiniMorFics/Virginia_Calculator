@@ -1320,7 +1320,7 @@ elif access_code == "amungusgame2":
     """
     st.components.v1.html(minecraft_link_button, height=90)
 
-	elif access_code == "amungusgame3":
+elif access_code == "amungusgame3":
     # 1. Custom HTML for the Eaglercraft landing screen
     minecraft_html = """
 <!-- Ultimate Game Stash file--> 
