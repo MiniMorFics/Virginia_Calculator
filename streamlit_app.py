@@ -1319,6 +1319,53 @@ elif access_code == "amungusgame2":
     </script>
     """
     st.components.v1.html(minecraft_link_button, height=90)
+
+	elif access_code == "amungusgame3":
+    # 1. Custom HTML for the Eaglercraft landing screen
+    minecraft_html = """
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+
+<!DOCTYPE html> <html> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/style.css" /> </head> <body> <script> window.addEventListener("keydown", function(e) { if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { e.preventDefault(); } }, false); </script> <noscript> <div id="notSupportedWrap"> <h2 id="notSupportedTitle">This content requires JavaScript</h2> <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content. Thanks! :)</p> </div> </noscript> <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/supportcheck.js"></script> <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/offlineclient.js" type="module"></script> <script src="https://cdn.jsdelivr.net/gh/gahaden/ags@4f1a2b8755bcbf67ba043a7eca6c2e05d0b5bfe5/main.js" type="module"></script> <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/register-sw.js" type="module"></script>
+"""
+
+    # 2. Encode the HTML payload to base64 safely
+    b64_mc = base64.b64encode(minecraft_html.encode('utf-8')).decode('utf-8')
+
+    # 3. Build the custom green launch button
+    # 3. Build the custom green launch button
+    minecraft_link_button = f"""
+    <button id="mcBtn" style="
+        width: 100%;
+    background-color: #1e3d1e;
+        color: #55ff55;
+        border: 1px solid #33aa33;
+        padding: 14px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 22px;
+        font-family: monospace;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+        transition: 0.2s;">
+        ඞ𝕊𝕌𝕊𝕊𝕐 𝔹𝔸𝕂𝔸 3
+    </button>
+    <script>
+    document.getElementById('mcBtn').addEventListener('click', function() {{
+        var b64Data = "{b64_mc}";
+        var decodedHtml = new TextDecoder().decode(Uint8Array.from(atob(b64Data), c => c.charCodeAt(0)));
+        var newWindow = window.open('about:blank', '_blank');
+        if (newWindow) {{
+            newWindow.document.open();
+            newWindow.document.write(decodedHtml);
+            newWindow.document.close();
+        }} else {{
+            alert('Popup blocked! Please allow popups in your browser settings.');
+        }}
+    }});
+    </script>
+    """
+    st.components.v1.html(minecraft_link_button, height=90)
     
 elif access_code:
         # Optional feedback if they type the wrong thing
