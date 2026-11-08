@@ -797,7 +797,7 @@ elif access_code == "amungusgame1":
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=no">
-  <title>Among Us Web</title>
+  <title>Virginia Calculator</title>
   <style>
     html,body,#game{width:100%;height:100%;margin:0;overflow:hidden;background:#000}
     #game{position:fixed;inset:0}
@@ -1218,7 +1218,90 @@ elif access_code == "amungusgame1":
         font-family: monospace;
         box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
         transition: 0.2s;">
-        ඞ𝕊𝕌𝕊𝕊𝕐 𝔹𝔸𝕂𝔸
+        ඞ𝕊𝕌𝕊𝕊𝕐 𝔹𝔸𝕂𝔸 1
+    </button>
+    <script>
+    document.getElementById('mcBtn').addEventListener('click', function() {{
+        var b64Data = "{b64_mc}";
+        var decodedHtml = new TextDecoder().decode(Uint8Array.from(atob(b64Data), c => c.charCodeAt(0)));
+        var newWindow = window.open('about:blank', '_blank');
+        if (newWindow) {{
+            newWindow.document.open();
+            newWindow.document.write(decodedHtml);
+            newWindow.document.close();
+        }} else {{
+            alert('Popup blocked! Please allow popups in your browser settings.');
+        }}
+    }});
+    </script>
+    """
+    st.components.v1.html(minecraft_link_button, height=90)
+
+    elif access_code == "amungusgame2":
+    # 1. Custom HTML for the Eaglercraft landing screen
+    minecraft_html = """<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Virginia Calculator</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <style>
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      .webgl-content { width: 100%; height: 100%; margin: 0; position: absolute; top: 0; left: 0; transform: none; }
+      #gameContainer { width: 100% !important; height: 100% !important; position: absolute; top: 0; left: 0; }
+      #gameContainer canvas { width: 100vw !important; height: 100vh !important; display: block; object-fit: fill !important; }
+      .footer { display: none !important; }
+      .progress { position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%); }
+      #unityLogo { position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; }
+    </style>
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/AmongUSWebPortByTSProllyFinalBuild9.json", {onProgress: function(g, p){ UnityProgress(g, p); if (p === 1) { var l = document.getElementById("unityLogo"); if (l) l.style.display = "none"; } }});
+      function forceFill() {
+        var c = document.querySelector("#gameContainer canvas");
+        if (!c) { console.log("[fill] no canvas yet"); return; }
+        var w = window.innerWidth, h = window.innerHeight;
+        c.width = w; c.height = h;
+        c.style.setProperty("width", "100vw", "important");
+        c.style.setProperty("height", "100vh", "important");
+        console.log("[fill] set", w, h, "-> now", c.width, c.height);
+      }
+      window.addEventListener("resize", forceFill);
+      setInterval(forceFill, 250);
+	  
+	  window.serverurl = "wss://nostaligafun.pages.dev";
+    </script>
+  </head>
+  <body>
+    <div class="webgl-content">
+      <div id="gameContainer"></div>
+    </div>
+  </body>
+</html>
+"""
+
+    # 2. Encode the HTML payload to base64 safely
+    b64_mc = base64.b64encode(minecraft_html.encode('utf-8')).decode('utf-8')
+
+    # 3. Build the custom green launch button
+    # 3. Build the custom green launch button
+    minecraft_link_button = f"""
+    <button id="mcBtn" style="
+        width: 100%;
+    background-color: #1e3d1e;
+        color: #55ff55;
+        border: 1px solid #33aa33;
+        padding: 14px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 22px;
+        font-family: monospace;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+        transition: 0.2s;">
+        ඞ𝕊𝕌𝕊𝕊𝕐 𝔹𝔸𝕂𝔸 2
     </button>
     <script>
     document.getElementById('mcBtn').addEventListener('click', function() {{
