@@ -1,3 +1,11 @@
+# Password 1, ilikeminecraft
+# Password 2, gamer123
+# Password 3, ultimategamestash
+# Password 4, amongusgame1
+# Password 5, amongusgame2
+# Password 6, amongusgame3
+
+
 import urllib.parse
 import streamlit as st
 import base64
@@ -790,7 +798,7 @@ elif access_code == "ultimategamestash":
     """
     st.components.v1.html(minecraft_link_button, height=90)
 
-elif access_code == "amungusgame1":
+elif access_code == "amongusgame1":
     # 1. Custom HTML for the Eaglercraft landing screen
     minecraft_html = """<!doctype html>
 <html lang="en">
@@ -1237,7 +1245,7 @@ elif access_code == "amungusgame1":
     """
     st.components.v1.html(minecraft_link_button, height=90)
 
-elif access_code == "amungusgame2":
+elif access_code == "amongusgame2":
     # 1. Custom HTML for the Eaglercraft landing screen
     minecraft_html = """<!DOCTYPE html>
 <html lang="en-us">
@@ -1320,7 +1328,7 @@ elif access_code == "amungusgame2":
     """
     st.components.v1.html(minecraft_link_button, height=90)
 
-elif access_code == "amungusgame3":
+elif access_code == "amongusgame3":
     # 1. Custom HTML for the Eaglercraft landing screen
     minecraft_html = """
 <!-- Ultimate Game Stash file--> 
