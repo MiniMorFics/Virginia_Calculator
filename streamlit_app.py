@@ -4,6 +4,7 @@
 # Password 4, amongusgame1
 # Password 5, amongusgame2
 # Password 6, amongusgame3
+# Password 7, eagle1.9
 
 
 import urllib.parse
@@ -1421,7 +1422,7 @@ elif access_code == "eagle1.9":
         font-family: monospace;
         box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
         transition: 0.2s;">
-        ඞ𝕊𝕌𝕊𝕊𝕐 𝔹𝔸𝕂𝔸 3
+        ⛏️ (Beta, still in work)
     </button>
     <script>
     document.getElementById('mcBtn').addEventListener('click', function() {{
