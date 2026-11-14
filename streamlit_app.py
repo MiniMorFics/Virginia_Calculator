@@ -27,33 +27,40 @@ st.markdown("""
 }
 .spinning-pibble {
     animation: spin 3s linear infinite;
-    width: 150px;
-    border-radius: 12px;
-    margin: 10px auto;
+    width: 220px;
+    border-radius: 16px;
+    margin: 20px auto;
     display: block;
 }
-.ad-box {
-    border: 3px solid #ff4b4b;
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    background-color: #1e1e1e;
+.ad-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999;
+    background-color: rgba(15, 15, 15, 0.98);
     color: white;
-    margin-bottom: 20px;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
 }
 .x-btn {
-    position: absolute;
-    top: 12px;
-    right: 15px;
+    position: fixed;
+    top: 25px;
+    right: 30px;
     background-color: #ff4b4b;
     color: white !important;
     text-decoration: none;
     font-weight: bold;
-    padding: 4px 10px;
-    border-radius: 5px;
+    font-size: 22px;
+    padding: 8px 16px;
+    border-radius: 8px;
     font-family: sans-serif;
+    z-index: 1000000;
 }
 .x-btn:hover {
     background-color: #ff1a1a;
@@ -65,19 +72,28 @@ div[data-testid="stButton"] button[kind="secondary"] {
 </style>
 """, unsafe_allow_html=True)
 
-# STAGE 1: Initial Ad with Fake X Button
+# STAGE 1: Initial Full-Screen Ad with Fake X Button
 if st.session_state.ad_stage == 1:
-    # Hidden button that switches the app to Stage 2 in the background
     if st.button("trigger_stage_2"):
         st.session_state.ad_stage = 2
         st.rerun()
 
     st.markdown("""
-    <div class="ad-box">
+    <div class="ad-overlay">
         <a href="https://youtube.com" target="_blank" class="x-btn"
            onclick="window.parent.document.querySelector('button[kind=secondary]').click();">X</a>
         <img src="https://jsdelivr.net" class="spinning-pibble">
-        <h3><a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">Subsribe to Epicpibble_4!</a></h3>
+        <h1 style="margin-top: 15px;"><a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">Subsribe to Epicpibble_4!</a></h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+# STAGE 2: Shown when the user comes back to the tab
+elif st.session_state.ad_stage == 2:
+    st.markdown("""
+    <div class="ad-overlay">
+        <a href="https://github.com" target="_blank" class="x-btn">X</a>
+        <h1 style="margin-bottom: 20px;">You thought you could get away with that, didi you?</h1>
+        <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
 
