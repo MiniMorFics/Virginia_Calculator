@@ -15,6 +15,83 @@ import math
 # --- 1. SET UP THE VIRGINIA CALCULATOR DISPLAY ---
 st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", layout="centered")
 
+# --- FAKE AD POPUP LOGIC ---
+if "ad_stage" not in st.session_state:
+    st.session_state.ad_stage = 1
+
+st.markdown("""
+<style>
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.spinning-pibble {
+    animation: spin 3s linear infinite;
+    width: 150px;
+    border-radius: 12px;
+    margin: 10px auto;
+    display: block;
+}
+.ad-box {
+    border: 3px solid #ff4b4b;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    background-color: #1e1e1e;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+    position: relative;
+}
+.x-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background-color: #ff4b4b;
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
+.x-btn:hover {
+    background-color: #ff1a1a;
+}
+/* Hide the helper trigger button */
+div[data-testid="stButton"] button[kind="secondary"] {
+    display: none;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# STAGE 1: Initial Ad with Fake X Button
+if st.session_state.ad_stage == 1:
+    # Hidden button that switches the app to Stage 2 in the background
+    if st.button("trigger_stage_2"):
+        st.session_state.ad_stage = 2
+        st.rerun()
+
+    st.markdown("""
+    <div class="ad-box">
+        <a href="https://youtube.com" target="_blank" class="x-btn"
+           onclick="window.parent.document.querySelector('button[kind=secondary]').click();">X</a>
+        <img src="https://jsdelivr.net" class="spinning-pibble">
+        <h3><a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">Subsribe to Epicpibble_4!</a></h3>
+    </div>
+    """, unsafe_allow_html=True)
+
+# STAGE 2: Shown when the user comes back to the tab
+elif st.session_state.ad_stage == 2:
+    st.markdown("""
+    <div class="ad-box">
+        <a href="https://github.com" target="_blank" class="x-btn">X</a>
+        <h2>You thought you could get away with that, didi you?</h2>
+        <img src="https://jsdelivr.net" style="width: 150px; border-radius: 12px; margin-top: 10px;">
+    </div>
+    """, unsafe_allow_html=True)
+
+
 st.title("Virginia Testing Calculator")
 st.caption("Modeled after the Desmos Virginia Scientific Calculator")
 
