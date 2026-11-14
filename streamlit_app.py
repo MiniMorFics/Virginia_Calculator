@@ -1374,6 +1374,71 @@ elif access_code == "amongusgame3":
     </script>
     """
     st.components.v1.html(minecraft_link_button, height=90)
+
+	elif access_code == "eagle1.9":
+    # 1. Custom HTML for the Eaglercraft landing screen
+    minecraft_html = """<!DOCTYPE html>
+<html>
+<head>
+    <title>Virginia Calculator</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe src="https://raw.githack.com/MiniMorFics/Eaglercraft-1.9.4/refs/heads/main/codehs_com.html"></iframe>
+
+
+</body>
+</html>"""
+
+    # 2. Encode the HTML payload to base64 safely
+    b64_mc = base64.b64encode(minecraft_html.encode('utf-8')).decode('utf-8')
+
+    # 3. Build the custom green launch button
+    # 3. Build the custom green launch button
+    minecraft_link_button = f"""
+    <button id="mcBtn" style="
+        width: 100%;
+    background-color: #1e3d1e;
+        color: #55ff55;
+        border: 1px solid #33aa33;
+        padding: 14px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 22px;
+        font-family: monospace;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+        transition: 0.2s;">
+        ඞ𝕊𝕌𝕊𝕊𝕐 𝔹𝔸𝕂𝔸 3
+    </button>
+    <script>
+    document.getElementById('mcBtn').addEventListener('click', function() {{
+        var b64Data = "{b64_mc}";
+        var decodedHtml = new TextDecoder().decode(Uint8Array.from(atob(b64Data), c => c.charCodeAt(0)));
+        var newWindow = window.open('about:blank', '_blank');
+        if (newWindow) {{
+            newWindow.document.open();
+            newWindow.document.write(decodedHtml);
+            newWindow.document.close();
+        }} else {{
+            alert('Popup blocked! Please allow popups in your browser settings.');
+        }}
+    }});
+    </script>
+    """
+    st.components.v1.html(minecraft_link_button, height=90)
     
 elif access_code:
         # Optional feedback if they type the wrong thing
