@@ -38,7 +38,7 @@ st.markdown("""
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 999999;
+    z-index: 999990;
     background-color: rgba(15, 15, 15, 0.98);
     color: white;
     display: flex;
@@ -65,27 +65,64 @@ st.markdown("""
 .x-btn:hover {
     background-color: #ff1a1a;
 }
-/* Hide the helper trigger button */
+/* Float the real Streamlit X button into the top right corner above the overlay */
+div[data-testid="stButton"]:has(button[kind="secondary"]) {
+    position: fixed;
+    top: 25px;
+    right: 30px;
+    z-index: 1000001;
+    width: auto !important;
+}
 div[data-testid="stButton"] button[kind="secondary"] {
-    display: none;
+    background-color: #ff4b4b !important;
+    color: white !important;
+    border: none !important;
+    font-weight: bold !important;
+    font-size: 20px !important;
+    padding: 6px 16px !important;
+    border-radius: 8px !important;
+}
+div[data-testid="stButton"] button[kind="secondary"]:hover {
+    background-color: #ff1a1a !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # STAGE 1: Initial Full-Screen Ad with Fake X Button
 if st.session_state.ad_stage == 1:
-    if st.button("trigger_stage_2"):
+    # Real Streamlit button styled as the top-right red X
+    if st.button("X", key="fake_x_btn"):
         st.session_state.ad_stage = 2
         st.rerun()
 
     st.markdown("""
     <div class="ad-overlay">
-        <a href="https://youtube.com" target="_blank" class="x-btn"
-           onclick="window.parent.document.querySelector('button[kind=secondary]').click();">X</a>
-        <img src="https://jsdelivr.net" class="spinning-pibble">
-        <h1 style="margin-top: 15px;"><a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">Subsribe to Epicpibble_4!</a></h1>
+        <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" class="spinning-pibble">
+        <h1 style="margin-top: 15px;">
+            <a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">
+                Subsribe to Epicpibble_4!
+            </a>
+        </h1>
     </div>
     """, unsafe_allow_html=True)
+
+# STAGE 2: Shown immediately when X is clicked (and opens YouTube in a new tab)
+elif st.session_state.ad_stage == 2:
+    # Automatically open YouTube in a new tab when entering Stage 2
+    st.components.v1.html("""
+        <script>
+            window.open("https://youtube.com", "_blank");
+        </script>
+    """, height=0)
+
+    st.markdown("""
+    <div class="ad-overlay">
+        <a href="https://github.com" target="_blank" class="x-btn">X</a>
+        <h1 style="margin-bottom: 20px;">You thought you could get away with that, didi you?</h1>
+        <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" style="width: 220px; border-radius: 16px;">
+    </div>
+    """, unsafe_allow_html=True)
+
 
 # STAGE 2: Shown when the user comes back to the tab
 elif st.session_state.ad_stage == 2:
