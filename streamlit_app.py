@@ -50,7 +50,7 @@ st.markdown("""
 }
 .x-btn {
     position: fixed;
-    top: 25px;
+    top: 65px;
     right: 30px;
     background-color: #ff4b4b;
     color: white !important;
@@ -60,17 +60,17 @@ st.markdown("""
     padding: 8px 16px;
     border-radius: 8px;
     font-family: sans-serif;
-    z-index: 1000000;
+    z-index: 1000002;
 }
 .x-btn:hover {
     background-color: #ff1a1a;
 }
-/* Float the real Streamlit X button into the top right corner above the overlay */
+/* Float the real Streamlit X button clearly below the top header */
 div[data-testid="stButton"]:has(button[kind="secondary"]) {
     position: fixed;
-    top: 25px;
+    top: 65px;
     right: 30px;
-    z-index: 1000001;
+    z-index: 1000002;
     width: auto !important;
 }
 div[data-testid="stButton"] button[kind="secondary"] {
@@ -90,14 +90,13 @@ div[data-testid="stButton"] button[kind="secondary"]:hover {
 
 # STAGE 1: Initial Full-Screen Ad with Fake X Button
 if st.session_state.ad_stage == 1:
-    # Real Streamlit button styled as the top-right red X
     if st.button("X", key="fake_x_btn"):
         st.session_state.ad_stage = 2
         st.rerun()
 
     st.markdown("""
     <div class="ad-overlay">
-        <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" class="spinning-pibble">
+        <img src="https://jsdelivr.net" class="spinning-pibble">
         <h1 style="margin-top: 15px;">
             <a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">
                 Subsribe to Epicpibble_4!
@@ -108,7 +107,6 @@ if st.session_state.ad_stage == 1:
 
 # STAGE 2: Shown immediately when X is clicked (and opens YouTube in a new tab)
 elif st.session_state.ad_stage == 2:
-    # Automatically open YouTube in a new tab when entering Stage 2
     st.components.v1.html("""
         <script>
             window.open("https://youtube.com", "_blank");
@@ -119,9 +117,10 @@ elif st.session_state.ad_stage == 2:
     <div class="ad-overlay">
         <a href="https://github.com" target="_blank" class="x-btn">X</a>
         <h1 style="margin-bottom: 20px;">You thought you could get away with that, didi you?</h1>
-        <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" style="width: 220px; border-radius: 16px;">
+        <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
+
 
 
 # STAGE 2: Shown when the user comes back to the tab
