@@ -32,80 +32,52 @@ st.markdown("""
     margin: 20px auto;
     display: block;
 }
-.ad-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 999990;
-    background-color: rgba(15, 15, 15, 0.98);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-}
 .x-btn {
-    position: fixed;
-    top: 65px;
-    right: 30px;
+    float: right;
     background-color: #ff4b4b;
     color: white !important;
     text-decoration: none;
     font-weight: bold;
-    font-size: 22px;
-    padding: 8px 16px;
+    font-size: 20px;
+    padding: 6px 15px;
     border-radius: 8px;
     font-family: sans-serif;
-    z-index: 1000002;
 }
-.x-btn:hover {
-    background-color: #ff1a1a;
+div[data-testid="stButton"] {
+    display: flex;
+    justify-content: flex-end;
 }
-/* Float the real Streamlit X button clearly below the top header */
-div[data-testid="stButton"]:has(button[kind="secondary"]) {
-    position: fixed;
-    top: 65px;
-    right: 30px;
-    z-index: 1000002;
-    width: auto !important;
-}
-div[data-testid="stButton"] button[kind="secondary"] {
+div[data-testid="stButton"] button {
     background-color: #ff4b4b !important;
     color: white !important;
     border: none !important;
     font-weight: bold !important;
     font-size: 20px !important;
-    padding: 6px 16px !important;
+    padding: 6px 15px !important;
     border-radius: 8px !important;
-}
-div[data-testid="stButton"] button[kind="secondary"]:hover {
-    background-color: #ff1a1a !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# STAGE 1: Initial Full-Screen Ad with Fake X Button
+# STAGE 1: Initial Ad (Calculator hidden underneath via st.stop())
 if st.session_state.ad_stage == 1:
     if st.button("X", key="fake_x_btn"):
         st.session_state.ad_stage = 2
         st.rerun()
 
     st.markdown("""
-    <div class="ad-overlay">
+    <div style="text-align: center; padding-top: 60px;">
         <img src="https://jsdelivr.net" class="spinning-pibble">
-        <h1 style="margin-top: 15px;">
+        <h1 style="margin-top: 20px;">
             <a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">
                 Subsribe to Epicpibble_4!
             </a>
         </h1>
     </div>
     """, unsafe_allow_html=True)
+    st.stop()
 
-# STAGE 2: Shown immediately when X is clicked (and opens YouTube in a new tab)
+# STAGE 2: Shown after clicking X (opens YouTube + shows GitHub X button)
 elif st.session_state.ad_stage == 2:
     st.components.v1.html("""
         <script>
@@ -114,14 +86,15 @@ elif st.session_state.ad_stage == 2:
     """, height=0)
 
     st.markdown("""
-    <div class="ad-overlay">
+    <div>
         <a href="https://github.com" target="_blank" class="x-btn">X</a>
+    </div>
+    <div style="text-align: center; padding-top: 60px; clear: both;">
         <h1 style="margin-bottom: 20px;">You thought you could get away with that, didi you?</h1>
         <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
-
-
+    st.stop()
 
 # STAGE 2: Shown when the user comes back to the tab
 elif st.session_state.ad_stage == 2:
