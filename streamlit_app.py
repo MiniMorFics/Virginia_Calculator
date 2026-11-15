@@ -61,11 +61,19 @@ if st.session_state.ad_stage == 1:
         <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" class="spinning-pibble">
         <h1 style="margin-top: 20px;">
             <a href="https://youtube.com/@epicpibble_4" target="_blank" style="color: #4da6ff; text-decoration: none;">
-                Maintainance breack! Youtube chanal: https://youtube.com/@epicpibble_4
+                Maintainance breack! Subcribe!: https://youtube.com/@epicpibble_4
             </a>
         </h1>
     </div>
     """, unsafe_allow_html=True)
+    
+	# Center the "I subscribed!" button underneath the link
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("I subscribed!", key="sub_btn", use_container_width=True):
+            st.session_state.ad_stage = 3
+            st.rerun()
+	
     st.stop()
 
 # STAGE 2: Shown after clicking first X (opens YouTube + real X button to enter calculator)
