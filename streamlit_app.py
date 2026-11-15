@@ -81,7 +81,7 @@ if st.session_state.ad_stage == 1:
 elif st.session_state.ad_stage == 2:
     st.components.v1.html("""
         <script>
-            window.open("https://www.youtube.com/@epicpibble_4", "_blank");
+            window.open("https://youtube.com", "_blank");
         </script>
     """, height=0)
 
@@ -90,31 +90,12 @@ elif st.session_state.ad_stage == 2:
         <a href="https://github.com" target="_blank" class="x-btn">X</a>
     </div>
     <div style="text-align: center; padding-top: 60px; clear: both;">
-        <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle/G3JXYu1iiWXuRwoE6</h1>
+        <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle Otherwise just go and press x</h1>
         <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
     st.stop()
 
-# STAGE 2: Shown when the user comes back to the tab
-elif st.session_state.ad_stage == 2:
-    st.markdown("""
-    <div class="ad-overlay">
-        <a href="https://github.com" target="_blank" class="x-btn">X</a>
-        <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle/G3JXYu1iiWXuRwoE6</h1>
-        <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
-    </div>
-    """, unsafe_allow_html=True)
-
-# STAGE 2: Shown when the user comes back to the tab
-elif st.session_state.ad_stage == 2:
-    st.markdown("""
-    <div class="ad-box">
-        <a href="https://github.com" target="_blank" class="x-btn">X</a>
-        <h2>You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle/G3JXYu1iiWXuRwoE6</h2>
-        <img src="https://jsdelivr.net" style="width: 150px; border-radius: 12px; margin-top: 10px;">
-    </div>
-    """, unsafe_allow_html=True)
 
 
 st.title("Virginia Testing Calculator")
