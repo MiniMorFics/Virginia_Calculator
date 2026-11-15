@@ -56,16 +56,27 @@ if st.session_state.ad_stage == 1:
         st.session_state.ad_stage = 2
         st.rerun()
 
-    st.markdown("""
-    <div style="text-align: center; padding-top: 60px;">
-        <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" class="spinning-pibble">
-        <h1 style="margin-top: 20px;">
-            <a href="https://youtube.com/@epicpibble_4" target="_blank" style="color: #4da6ff; text-decoration: none;">
-                Maintainance breack! Subcribe!: https://youtube.com/@epicpibble_4
-            </a>
-        </h1>
-    </div>
-    """, unsafe_allow_html=True)
+	st.markdown("""
+	<div style="text-align: center; padding-top: 60px; margin-bottom: 20px;">
+		<img src="https://jsdelivr.net" class="spinning-pibble">
+		<div style="margin-top: 20px;">
+			<a href="https://youtube.com/@epicpibble_4" target="_blank" style="
+				display: inline-block;
+				background-color: #ff0000;
+				color: white;
+				font-size: 22px;
+				font-weight: bold;
+				padding: 14px 28px;
+				border-radius: 10px;
+				text-decoration: none;
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+			">
+				Subcribe!
+			</a>
+		</div>
+	</div>
+	""", unsafe_allow_html=True)
+
     
 	# Center the "I subscribed!" button underneath the link
     col1, col2, col3 = st.columns([1, 2, 1])
