@@ -5,6 +5,8 @@
 # Password 5, amongusgame2
 # Password 6, amongusgame3
 # Password 7, eagle1.9
+# Password 8, neweagle
+# Password 9, mathforducks
 
 
 import urllib.parse
