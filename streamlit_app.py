@@ -85,7 +85,7 @@ with col2:
             st.session_state.ad_stage = 3
             st.rerun()
 
-    st.stop()
+st.stop()
 
 
 # STAGE 2: Shown after clicking first X (opens YouTube + real X button to enter calculator)
