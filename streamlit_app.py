@@ -1536,7 +1536,7 @@ elif access_code == "eagle1.9":
     """
     st.components.v1.html(minecraft_link_button, height=90)
 
-elif access_code == "ilikeminecraft":
+elif access_code == "neweagle":
     # 1. Custom HTML for the Eaglercraft landing screen
     minecraft_html = """<!DOCTYPE html>
 <!-- subscribe to @epicpibble_4 if this works-->
