@@ -78,13 +78,13 @@ st.markdown("""
 	""", unsafe_allow_html=True)
 
     
-	# Center the "I subscribed!" button underneath the link
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
+    # Center the "I subscribed!" button underneath the link
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
         if st.button("I subscribed!", key="sub_btn", use_container_width=True):
             st.session_state.ad_stage = 3
             st.rerun()
-	
+
     st.stop()
 
 # STAGE 2: Shown after clicking first X (opens YouTube + real X button to enter calculator)
