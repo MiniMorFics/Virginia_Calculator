@@ -20,7 +20,7 @@ if "ad_stage" not in st.session_state:
     st.session_state.ad_stage = 1
 
 # Only apply the red X button styling while the ad is active (Stages 1 and 2)
-if st.session_state.ad_stage in:
+if st.session_state.ad_stage in [1, 2]:
     st.markdown("""
     <style>
     @keyframes spin {
