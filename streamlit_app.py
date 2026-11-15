@@ -56,40 +56,39 @@ if st.session_state.ad_stage == 1:
         st.session_state.ad_stage = 2
         st.rerun()
 
-st.markdown("""
-	<div style="text-align: center; padding-top: 60px; margin-bottom: 20px;">
-		<img src="https://jsdelivr.net" class="spinning-pibble">
-		<div style="margin-top: 20px;">
-			<a href="https://youtube.com/@epicpibble_4" target="_blank" style="
-				display: inline-block;
-				background-color: #ff0000;
-				color: white;
-				font-size: 22px;
-				font-weight: bold;
-				padding: 14px 28px;
-				border-radius: 10px;
-				text-decoration: none;
-				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-			">
-				Subcribe!
-			</a>
-		</div>
-	</div>
-	""", unsafe_allow_html=True)
+    st.markdown("""
+    <div style="text-align: center; padding-top: 60px; margin-bottom: 20px;">
+        <img src="https://jsdelivr.net" class="spinning-pibble">
+        <div style="margin-top: 20px;">
+            <a href="https://youtube.com" target="_blank" style="
+                display: inline-block;
+                background-color: #ff0000;
+                color: white;
+                font-size: 22px;
+                font-weight: bold;
+                padding: 14px 28px;
+                border-radius: 10px;
+                text-decoration: none;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            ">
+                Subcribe!
+            </a>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    
-	# Center the "I subscribed!" button underneath the link
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
+    # Center the "I subscribed!" button underneath the link
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
         if st.button("I subscribed!", key="sub_btn", use_container_width=True):
             st.session_state.ad_stage = 3
             st.rerun()
 
-st.stop()
-
+    st.stop()
 
 # STAGE 2: Shown after clicking first X (opens YouTube + real X button to enter calculator)
 elif st.session_state.ad_stage == 2:
+
     st.components.v1.html("""
     <script>
         window.open("https://youtube.com/@epicpibble_4", "_blank");
