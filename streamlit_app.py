@@ -89,7 +89,7 @@ st.stop()
 
 
 # STAGE 2: Shown after clicking first X (opens YouTube + real X button to enter calculator)
-	elif st.session_state.ad_stage == 2:
+elif st.session_state.ad_stage == 2:
     st.components.v1.html("""
     <script>
         window.open("https://youtube.com/@epicpibble_4", "_blank");
