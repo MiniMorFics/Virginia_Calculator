@@ -101,7 +101,7 @@ elif st.session_state.ad_stage == 2:
 
     st.markdown("""
     <div style="text-align: center; padding-top: 60px; clear: both;">
-        <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle Otherwise just go and press x</h1>
+        <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did, next time press I subscribed. Now just press x button.</h1>
         <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
