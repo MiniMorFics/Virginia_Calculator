@@ -58,9 +58,9 @@ if st.session_state.ad_stage == 1:
 
     st.markdown("""
     <div style="text-align: center; padding-top: 60px;">
-        <img src="https://jsdelivr.net" class="spinning-pibble">
+        <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" class="spinning-pibble">
         <h1 style="margin-top: 20px;">
-            <a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">
+            <a href="https://youtube.com/@epicpibble_4" target="_blank" style="color: #4da6ff; text-decoration: none;">
                 Subsribe to Epicpibble_4!
             </a>
         </h1>
@@ -72,7 +72,7 @@ if st.session_state.ad_stage == 1:
 elif st.session_state.ad_stage == 2:
     st.components.v1.html("""
     <script>
-        window.open("https://youtube.com", "_blank");
+        window.open("https://youtube.com/@epicpibble_4", "_blank");
     </script>
     """, height=0)
 
