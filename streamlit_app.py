@@ -61,7 +61,7 @@ if st.session_state.ad_stage == 1:
         <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" class="spinning-pibble">
         <h1 style="margin-top: 20px;">
             <a href="https://youtube.com/@epicpibble_4" target="_blank" style="color: #4da6ff; text-decoration: none;">
-                Subsribe to Epicpibble_4!
+                Maintainance breack! Youtube chanal: https://youtube.com/@epicpibble_4
             </a>
         </h1>
     </div>
