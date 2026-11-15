@@ -56,7 +56,7 @@ if st.session_state.ad_stage == 1:
         st.session_state.ad_stage = 2
         st.rerun()
 
-	st.markdown("""
+st.markdown("""
 	<div style="text-align: center; padding-top: 60px; margin-bottom: 20px;">
 		<img src="https://jsdelivr.net" class="spinning-pibble">
 		<div style="margin-top: 20px;">
