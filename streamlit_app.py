@@ -90,7 +90,7 @@ elif st.session_state.ad_stage == 2:
         <a href="https://github.com" target="_blank" class="x-btn">X</a>
     </div>
     <div style="text-align: center; padding-top: 60px; clear: both;">
-        <h1 style="margin-bottom: 20px;">You thought you could get away with that, didi you?</h1>
+        <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle/G3JXYu1iiWXuRwoE6</h1>
         <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
@@ -101,7 +101,7 @@ elif st.session_state.ad_stage == 2:
     st.markdown("""
     <div class="ad-overlay">
         <a href="https://github.com" target="_blank" class="x-btn">X</a>
-        <h1 style="margin-bottom: 20px;">You thought you could get away with that, didi you?</h1>
+        <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle/G3JXYu1iiWXuRwoE6</h1>
         <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
@@ -111,7 +111,7 @@ elif st.session_state.ad_stage == 2:
     st.markdown("""
     <div class="ad-box">
         <a href="https://github.com" target="_blank" class="x-btn">X</a>
-        <h2>You thought you could get away with that, didi you?</h2>
+        <h2>You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle/G3JXYu1iiWXuRwoE6</h2>
         <img src="https://jsdelivr.net" style="width: 150px; border-radius: 12px; margin-top: 10px;">
     </div>
     """, unsafe_allow_html=True)
