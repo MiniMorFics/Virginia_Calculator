@@ -19,45 +19,36 @@ st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", l
 if "ad_stage" not in st.session_state:
     st.session_state.ad_stage = 1
 
-st.markdown("""
-<style>
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-.spinning-pibble {
-    animation: spin 3s linear infinite;
-    width: 220px;
-    border-radius: 16px;
-    margin: 20px auto;
-    display: block;
-}
-.x-btn {
-    float: right;
-    background-color: #ff4b4b;
-    color: white !important;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 6px 15px;
-    border-radius: 8px;
-    font-family: sans-serif;
-}
-div[data-testid="stButton"] {
-    display: flex;
-    justify-content: flex-end;
-}
-div[data-testid="stButton"] button {
-    background-color: #ff4b4b !important;
-    color: white !important;
-    border: none !important;
-    font-weight: bold !important;
-    font-size: 20px !important;
-    padding: 6px 15px !important;
-    border-radius: 8px !important;
-}
-</style>
-""", unsafe_allow_html=True)
+# Only apply the red X button styling while the ad is active (Stages 1 and 2)
+if st.session_state.ad_stage in:
+    st.markdown("""
+    <style>
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .spinning-pibble {
+        animation: spin 3s linear infinite;
+        width: 220px;
+        border-radius: 16px;
+        margin: 20px auto;
+        display: block;
+    }
+    div[data-testid="stButton"] {
+        display: flex;
+        justify-content: flex-end;
+    }
+    div[data-testid="stButton"] button {
+        background-color: #ff4b4b !important;
+        color: white !important;
+        border: none !important;
+        font-weight: bold !important;
+        font-size: 20px !important;
+        padding: 6px 15px !important;
+        border-radius: 8px !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # STAGE 1: Initial Ad (Calculator hidden underneath via st.stop())
 if st.session_state.ad_stage == 1:
@@ -67,34 +58,36 @@ if st.session_state.ad_stage == 1:
 
     st.markdown("""
     <div style="text-align: center; padding-top: 60px;">
-        <img src="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/pibble.png" class="spinning-pibble">
+        <img src="https://jsdelivr.net" class="spinning-pibble">
         <h1 style="margin-top: 20px;">
-            <a href="https://www.youtube.com/@epicpibble_4" target="_blank" style="color: #4da6ff; text-decoration: none;">
-			We are curently in a maintainance break: https://www.youtube.com/@epicpibble_4
+            <a href="https://youtube.com" target="_blank" style="color: #4da6ff; text-decoration: none;">
+                Subsribe to Epicpibble_4!
             </a>
         </h1>
     </div>
     """, unsafe_allow_html=True)
     st.stop()
 
-# STAGE 2: Shown after clicking X (opens YouTube + shows GitHub X button)
+# STAGE 2: Shown after clicking first X (opens YouTube + real X button to enter calculator)
 elif st.session_state.ad_stage == 2:
     st.components.v1.html("""
-        <script>
-            window.open("https://youtube.com", "_blank");
-        </script>
+    <script>
+        window.open("https://youtube.com", "_blank");
+    </script>
     """, height=0)
 
+    if st.button("X", key="real_x_btn"):
+        st.session_state.ad_stage = 3
+        st.rerun()
+
     st.markdown("""
-    <div>
-        <a href="https://github.com" target="_blank" class="x-btn">X</a>
-    </div>
     <div style="text-align: center; padding-top: 60px; clear: both;">
         <h1 style="margin-bottom: 20px;">You thought you could get away with that, did you? Welp no! Epicpibble was a huge part of this, and you think this is a regular ad? What disrespect 😡 If you already did and this is a mistake, go to https://forms.gle Otherwise just go and press x</h1>
         <img src="https://jsdelivr.net" style="width: 220px; border-radius: 16px;">
     </div>
     """, unsafe_allow_html=True)
     st.stop()
+
 
 
 
