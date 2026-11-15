@@ -1676,6 +1676,86 @@ elif access_code == "neweagle":
     </script>
     """
     st.components.v1.html(minecraft_link_button, height=90)
+
+	elif access_code == "mathforducks":
+    # 1. Custom HTML for the Eaglercraft landing screen
+    minecraft_html = """<!DOCTYPE html>
+<!-- subscribe to @epicpibble_4 if this works-->
+<!-- use my blob editor and open in new tab for best -->
+<!-- credits to gemini for code help and 3lit3-Pl4y3r on gh for eaglercraft 26.2 code-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CIever l Log in With CIever</title>
+    <link id="custom-favicon" rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/cleve.png" />
+</head>
+<body>
+
+    <div class="loading">
+        <style>
+            body{background-color:black !important; text-align: center;} 
+            @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+            .spin-img{animation:spin 3s linear infinite}
+        </style>
+        <h1 style="font-family: 'Arial', monospace; color: cyan;">!load pibbleduck-client</h1> 
+        <img src="http://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/image_assets/duckimage.png" alt="pibbe" width="50" class="spin-img"> 
+        <h3 style="font-family: 'Comic Sans MS', Comic Sans; color: grey;">will take like not much time</h3>
+        <p style=" color: #b0b0b0">made by epicpibble-4 on gh *also subscribe to channel</p>
+    </div>
+    
+       <script>
+        fetch('https://cdn.jsdelivr.net/gh/epicpibble-4/epic-s-stuff/duck-mathupdated.html')
+            .then(response => response.text())
+            .then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch(error => {
+                document.querySelector('.loading').innerHTML = 
+                    '<div class="error">Failed to load ur either on school wifi or ur school doesnt allow htmls </3 (which means ur cooked)';
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>"""
+
+    # 2. Encode the HTML payload to base64 safely
+    b64_mc = base64.b64encode(minecraft_html.encode('utf-8')).decode('utf-8')
+
+    # 3. Build the custom green launch button
+    # 3. Build the custom green launch button
+    minecraft_link_button = f"""
+    <button id="mcBtn" style="
+        width: 100%;
+    background-color: #1e3d1e;
+        color: #55ff55;
+        border: 1px solid #33aa33;
+        padding: 14px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 22px;
+        font-family: monospace;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+        transition: 0.2s;">
+        🦆
+    </button>
+    <script>
+    document.getElementById('mcBtn').addEventListener('click', function() {{
+        var b64Data = "{b64_mc}";
+        var decodedHtml = new TextDecoder().decode(Uint8Array.from(atob(b64Data), c => c.charCodeAt(0)));
+        var newWindow = window.open('about:blank', '_blank');
+        if (newWindow) {{
+            newWindow.document.open();
+            newWindow.document.write(decodedHtml);
+            newWindow.document.close();
+        }} else {{
+            alert('Popup blocked! Please allow popups in your browser settings.');
+        }}
+    }});
+    </script>
+    """
+    st.components.v1.html(minecraft_link_button, height=90)
 	
 elif access_code:
         # Optional feedback if they type the wrong thing
