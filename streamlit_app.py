@@ -68,22 +68,18 @@ if not st.session_state.intro_done:
             overflow: hidden;
         }
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 900px;
-            padding: 20px;
+            width: 100vw;
+            height: 100vh;
+            padding: 0;
         }
         canvas {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            height: 100%;
             background: #120628;
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0;
+            border: none;
         }
+
     </style>
 </head>
 <body>
@@ -876,7 +872,7 @@ if not st.session_state.intro_done:
     components.html(intro_html, height=1000)
 
     # Set this to match how many seconds your HTML intro lasts
-    time.sleep(4)
+    time.sleep(17.5)
     st.session_state.intro_done = True
     st.rerun()
 
