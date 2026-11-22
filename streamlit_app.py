@@ -17,7 +17,7 @@ import math
 import time
 
 # --- 1. SET UP THE VIRGINIA CALCULATOR DISPLAY ---
-st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", layout="centered")
+st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", layout="wide")
 
 # Track whether the intro has already played so button clicks don't restart it
 if "intro_done" not in st.session_state:
@@ -872,10 +872,10 @@ canvas.height = window.innerHeight;
 </html>
     """
 
-    components.html(intro_html, height=1000)
+    components.html(intro_html, width=3000, height=1500)
 
     # Set this to match how many seconds your HTML intro lasts
-    time.sleep(17.5)
+    time.sleep(18.5)
     st.session_state.intro_done = True
     st.rerun()
 
