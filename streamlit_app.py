@@ -18,11 +18,28 @@ import math
 st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", layout="centered")
 
 
-st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", layout="centered")
+import streamlit.components.v1 as components
 
-# Add your custom HTML here (Line 21)
-st.markdown("""
-    <div>
+intro_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: transparent; display: flex; justify-content: center; overflow: hidden; }
+  canvas {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #120628;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+</style>
+</head>
+<body>
+  <canvas id="introCanvas" width="1280" height="720"></canvas>
+  <script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -850,8 +867,15 @@ st.markdown("""
 
 </body>
 </html>
-    </div>
-""", unsafe_allow_html=True)
+  </script>
+</body>
+</html>
+"""
+
+components.html(intro_html, height=410)
+
+
+
 
 st.title("Virginia Testing Calculator")
 st.caption("Modeled after the Desmos Virginia Scientific Calculator")
