@@ -69,7 +69,7 @@ else:
     )
 
     # Paste your HTML intro inside the triple quotes below
-    intro_html = """
+intro_html = """
     <!DOCTYPE html>
 <html lang="en">
 <head>
