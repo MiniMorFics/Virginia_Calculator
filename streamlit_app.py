@@ -29,13 +29,13 @@ if not st.session_state.intro_done:
         """
         <style>
         iframe[title="streamlit.components.v1.html"] {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 999999;
-            border: none;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 999999 !important;
+            border: none !important;
         }
         </style>
         """,
@@ -91,6 +91,9 @@ if not st.session_state.intro_done:
 <script>
     const canvas = document.getElementById('introCanvas');
     const ctx = canvas.getContext('2d');
+	canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
 
     let startTime = null;
     let animationFrameId = null;
