@@ -18,22 +18,11 @@ import math
 st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", layout="centered")
 
 
-import urllib.parse
-import streamlit as st
-import streamlit.components.v1 as components
-import time
-import base64
-import math
-
-# --- 1. SET UP THE VIRGINIA CALCULATOR DISPLAY ---
 st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", layout="centered")
 
-# --- 2. AUTO-ADVANCING ANIMATED INTRO ---
-if "intro_done" not in st.session_state:
-    st.session_state.intro_done = False
-
-if not st.session_state.intro_done:
-    intro_html = """
+# Add your custom HTML here (Line 21)
+st.markdown("""
+    <div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -861,16 +850,8 @@ if not st.session_state.intro_done:
 
 </body>
 </html>
-    """
-    components.html(intro_html, height=550)
-    
-    # Wait for the animation to finish (change 5 to your animation's exact length in seconds)
-    time.sleep(5)
-    st.session_state.intro_done = True
-    st.rerun()
-
-
-
+    </div>
+""", unsafe_allow_html=True)
 
 st.title("Virginia Testing Calculator")
 st.caption("Modeled after the Desmos Virginia Scientific Calculator")
