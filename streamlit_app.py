@@ -28,14 +28,24 @@ if not st.session_state.intro_done:
     st.markdown(
         """
         <style>
-        html, body, [data-testid="stAppViewContainer"] {
-            overflow: hidden !important;
+        header[data-testid="stHeader"], [data-testid="stToolbar"] {
+            display: none !important;
         }
+        html, body, [data-testid="stAppViewContainer"], .main {
+            overflow: hidden !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        [data-testid="stCustomComponentV1"],
+        [data-testid="stCustomComponentV1"] iframe,
         iframe {
             position: fixed !important;
-            inset: 0 !important;
+            top: 0 !important;
+            left: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
+            max-width: 100vw !important;
+            max-height: 100vh !important;
             z-index: 999999 !important;
             border: none !important;
         }
@@ -878,22 +888,34 @@ canvas.height = window.innerHeight;
         animationFrameId = requestAnimationFrame(render);
     }
 
-    window.onload = () => {
-        initBlocks();
-        animationFrameId = requestAnimationFrame(render);
-    };
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        window.onload = () => {
+            resizeCanvas();
+            initBlocks();
+            animationFrameId = requestAnimationFrame(render);
+        };
+
 </script>
 
 </body>
 </html>
     """
 
-    components.html(intro_html, height=800)
 
-    # Set this to match how many seconds your HTML intro lasts
+
+if not st.session_state.intro_done:
+    components.html(intro_html, height=800)
     time.sleep(18.5)
     st.session_state.intro_done = True
     st.rerun()
+    st.stop()
+
+
 
 
 
