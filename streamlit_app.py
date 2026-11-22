@@ -20,860 +20,345 @@ st.set_page_config(page_title="Virginia Testing Calculator", page_icon="🧮", l
 
 import streamlit.components.v1 as components
 
-intro_html = """
+
+intro_html = r"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniMorFics Animated Intro</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: transparent; display: flex; justify-content: center; overflow: hidden; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background: transparent;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+  }
   canvas {
     width: 100%;
     aspect-ratio: 16 / 9;
     background: #120628;
     border-radius: 12px;
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
     border: 2px solid rgba(255, 255, 255, 0.1);
   }
 </style>
 </head>
 <body>
-  <canvas id="introCanvas" width="1280" height="720"></canvas>
-  <script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiniMorFics Animated Intro</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #090514;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 900px;
-            padding: 20px;
-        }
-        canvas {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #120628;
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
+  <div class="container">
     <canvas id="introCanvas" width="1280" height="720"></canvas>
-</div>
+  </div>
 
 <script>
-    const canvas = document.getElementById('introCanvas');
-    const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById('introCanvas');
+  const ctx = canvas.getContext('2d');
 
-    let startTime = null;
-    let animationFrameId = null;
+  let startTime = null;
+  let animationFrameId = null;
 
-    // Background streaks & floating energy embers
-    const streaks = Array.from({ length: 42 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        length: 120 + Math.random() * 280,
-        speed: 450 + Math.random() * 650,
-        width: 2 + Math.random() * 3.5,
-        color: Math.random() > 0.4 ? 'rgba(168, 85, 247, 0.45)' : 'rgba(56, 189, 248, 0.55)'
-    }));
+  // Background streaks & floating energy embers
+  const streaks = Array.from({ length: 42 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    length: 120 + Math.random() * 280,
+    speed: 450 + Math.random() * 650,
+    width: 2 + Math.random() * 3.5,
+    color: Math.random() > 0.4 ? 'rgba(168, 85, 247, 0.45)' : 'rgba(56, 189, 248, 0.55)'
+  }));
 
-    const embers = Array.from({ length: 45 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: 1.5 + Math.random() * 3.5,
-        speedY: -25 - Math.random() * 55,
-        drift: Math.random() * Math.PI * 2,
-        color: Math.random() > 0.5 ? '#c084fc' : '#38bdf8'
-    }));
+  const embers = Array.from({ length: 45 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: 1.5 + Math.random() * 3.5,
+    speedY: -25 - Math.random() * 55,
+    drift: Math.random() * Math.PI * 2,
+    color: Math.random() > 0.5 ? '#c084fc' : '#38bdf8'
+  }));
 
-    // Creeper 8x8 pixel grid (0 = light green, 1 = mid green, 2 = dark green, 3 = black face)
-    const creeperGrid = [
-        [0, 1, 2, 1, 0, 1, 2, 0],
-        [1, 0, 1, 0, 2, 0, 1, 2],
-        [2, 3, 3, 1, 2, 3, 3, 1],
-        [0, 3, 3, 2, 0, 3, 3, 0],
-        [1, 2, 0, 3, 3, 1, 2, 1],
-        [2, 1, 3, 3, 3, 3, 0, 2],
-        [0, 2, 3, 3, 3, 3, 1, 0],
-        [1, 0, 3, 1, 2, 3, 2, 1]
-    ];
-    const greens = ['#55e669', '#28b83d', '#168027', '#0a0a0c'];
+  // Creeper 8x8 pixel grid (0 = light green, 1 = mid green, 2 = dark green, 3 = black face)
+  const creeperGrid = [,
+ ,
+ ,
+ ,
+ ,
+ ,
+ ,
+    [1, 0, 3, 1, 2, 3, 2, 1]
+  ];
 
-    // Generate block particles for assembly & explosion
-    let blocks = [];
-    let smokeParticles = [];
+  const greens = ['#55e669', '#28b83d', '#168027', '#0a0a0c'];
 
-    function initBlocks() {
-        blocks = [];
-        smokeParticles = [];
-        const blockSize = 22;
-        const startX = canvas.width / 2 - (8 * blockSize) / 2;
-        const startY = canvas.height / 2 + 30 - (8 * blockSize) / 2;
+  // Generate block particles for assembly & explosion
+  let blocks = [];
+  let smokeParticles = [];
 
-        for (let r = 0; r < 8; r++) {
-            for (let c = 0; c < 8; c++) {
-                const targetX = startX + c * blockSize;
-                const targetY = startY + r * blockSize;
-                const angle = Math.random() * Math.PI * 2;
-                const dist = 500 + Math.random() * 400;
+  function initBlocks() {
+    blocks = [];
+    smokeParticles = [];
+    const blockSize = 22;
+    const startX = canvas.width / 2 - (8 * blockSize) / 2;
+    const startY = canvas.height / 2 + 30 - (8 * blockSize) / 2;
 
-                const dx = (c - 3.5);
-                const dy = (r - 3.5);
-                const outAngle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.5;
-                const speed = 350 + Math.random() * 450;
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const targetX = startX + c * blockSize;
+        const targetY = startY + r * blockSize;
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 500 + Math.random() * 400;
 
-                blocks.push({
-                    targetX,
-                    targetY,
-                    startX: targetX + Math.cos(angle) * dist,
-                    startY: targetY + Math.sin(angle) * dist,
-                    vx: Math.cos(outAngle) * speed,
-                    vy: Math.sin(outAngle) * speed - 120,
-                    rotSpeed: (Math.random() - 0.5) * 8,
-                    size: blockSize,
-                    color: greens[creeperGrid[r][c]],
-                    delay: Math.random() * 0.45
-                });
-            }
-        }
+        const dx = (c - 3.5);
+        const dy = (r - 3.5);
+        const outAngle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.5;
+        const speed = 350 + Math.random() * 450;
 
-        // Thick smoke clouds for post-explosion reveal
-        for (let i = 0; i < 65; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = Math.random() * 240;
-            smokeParticles.push({
-                baseX: canvas.width / 2 + Math.cos(angle) * radius,
-                baseY: canvas.height / 2 + 15 + Math.sin(angle) * radius * 0.85,
-                vx: Math.cos(angle) * (40 + Math.random() * 70),
-                vy: Math.sin(angle) * (30 + Math.random() * 50) - 25,
-                radius: 75 + Math.random() * 95,
-                shade: Math.random() > 0.35 ? 'rgba(215, 210, 230,' : 'rgba(165, 155, 185,'
-            });
-        }
-    }
-
-    function easeOutBack(x) {
-        const c1 = 1.70158;
-        const c3 = c1 + 1;
-        return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
-    }
-
-    function drawBackground(dt, elapsed) {
-        const grad = ctx.createRadialGradient(
-            canvas.width * 0.5, canvas.height * 0.45, 50,
-            canvas.width * 0.5, canvas.height * 0.5, canvas.width * 0.85
-        );
-        grad.addColorStop(0, '#320d75');
-        grad.addColorStop(0.5, '#190642');
-        grad.addColorStop(1, '#080117');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Diagonal light streaks
-        ctx.save();
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate(-Math.PI / 5);
-        ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
-        streaks.forEach(s => {
-            s.x += s.speed * dt;
-            if (s.x > canvas.width + 300) {
-                s.x = -300;
-                s.y = Math.random() * canvas.height * 1.5 - 200;
-            }
-            const streakGrad = ctx.createLinearGradient(s.x, s.y, s.x + s.length, s.y);
-            streakGrad.addColorStop(0, 'rgba(255,255,255,0)');
-            streakGrad.addColorStop(0.5, s.color);
-            streakGrad.addColorStop(1, 'rgba(255,255,255,0)');
-
-            ctx.fillStyle = streakGrad;
-            ctx.fillRect(s.x, s.y, s.length, s.width);
+        blocks.push({
+          targetX,
+          targetY,
+          startX: targetX + Math.cos(angle) * dist,
+          startY: targetY + Math.sin(angle) * dist,
+          vx: Math.cos(outAngle) * speed,
+          vy: Math.sin(outAngle) * speed - 120,
+          rotSpeed: (Math.random() - 0.5) * 8,
+          size: blockSize,
+          color: greens[creeperGrid[r][c]],
+          delay: Math.random() * 0.45
         });
-        ctx.restore();
-
-        // Floating glowing embers
-        ctx.save();
-        embers.forEach(e => {
-            e.y += e.speedY * dt;
-            e.x += Math.sin(elapsed * 2 + e.drift) * 18 * dt;
-            if (e.y < -10) {
-                e.y = canvas.height + 10;
-                e.x = Math.random() * canvas.width;
-            }
-            ctx.fillStyle = e.color;
-            ctx.shadowColor = e.color;
-            ctx.shadowBlur = 10;
-            ctx.globalAlpha = 0.65;
-            ctx.beginPath();
-            ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
-            ctx.fill();
-        });
-        ctx.restore();
+      }
     }
 
-    function drawTechHalo(cx, cy, elapsed, alpha) {
-        if (alpha <= 0.01) return;
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.translate(cx, cy);
-
-        // Ambient radial aura behind the mascot
-        const aura = ctx.createRadialGradient(0, 0, 30, 0, 0, 260);
-        aura.addColorStop(0, 'rgba(168, 85, 247, 0.35)');
-        aura.addColorStop(0.6, 'rgba(56, 189, 248, 0.12)');
-        aura.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = aura;
-        ctx.beginPath();
-        ctx.arc(0, 0, 260, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Outer rotating dashed energy ring
-        ctx.save();
-        ctx.rotate(elapsed * 0.45);
-        ctx.strokeStyle = 'rgba(192, 132, 252, 0.35)';
-        ctx.lineWidth = 3;
-        ctx.setLineDash([28, 18, 8, 18]);
-        ctx.beginPath();
-        ctx.arc(0, 0, 205, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-
-        // Inner counter-rotating cyan arc ring
-        ctx.save();
-        ctx.rotate(-elapsed * 0.7);
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([65, 45]);
-        ctx.beginPath();
-        ctx.arc(0, 0, 182, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-
-        ctx.restore();
+    // Thick smoke clouds for post-explosion reveal
+    for (let i = 0; i < 65; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = Math.random() * 240;
+      smokeParticles.push({
+        baseX: canvas.width / 2 + Math.cos(angle) * radius,
+        baseY: canvas.height / 2 + 15 + Math.sin(angle) * radius * 0.85,
+        vx: Math.cos(angle) * (40 + Math.random() * 70),
+        vy: Math.sin(angle) * (30 + Math.random() * 50) - 25,
+        radius: 75 + Math.random() * 95,
+        shade: Math.random() > 0.35 ? 'rgba(215, 210, 230,' : 'rgba(165, 155, 185,'
+      });
     }
-
-    function drawMarioHat(cx, cy, scale) {
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.scale(scale, scale);
-
-        // 1. Cast shadow onto the Creeper's forehead beneath the visor
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.38)';
-        ctx.beginPath();
-        ctx.ellipse(0, 12, 82, 16, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // 2. Wide, puffy mushroom-like red crown
-        const crownGrad = ctx.createRadialGradient(-18, -58, 12, 0, -36, 125);
-        crownGrad.addColorStop(0, '#ff5947');
-        crownGrad.addColorStop(0.45, '#e81e12');
-        crownGrad.addColorStop(0.85, '#b80c04');
-        crownGrad.addColorStop(1, '#850600');
-
-        ctx.fillStyle = crownGrad;
-        ctx.beginPath();
-        ctx.moveTo(-88, -10);
-        ctx.bezierCurveTo(-132, -32, -108, -98, 0, -98);
-        ctx.bezierCurveTo(108, -98, 132, -32, 88, -10);
-        ctx.closePath();
-        ctx.fill();
-
-        // Soft rim light on top edge of the crown
-        ctx.strokeStyle = 'rgba(255, 195, 185, 0.45)';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(-78, -52);
-        ctx.bezierCurveTo(-50, -93, 50, -93, 78, -52);
-        ctx.stroke();
-
-        // 3. Narrower, curved front visor / brim
-        const brimGrad = ctx.createLinearGradient(0, -14, 0, 22);
-        brimGrad.addColorStop(0, '#ff3b2f');
-        brimGrad.addColorStop(0.65, '#d61308');
-        brimGrad.addColorStop(1, '#8f0700');
-
-        ctx.fillStyle = brimGrad;
-        ctx.beginPath();
-        ctx.moveTo(-86, -12);
-        ctx.quadraticCurveTo(0, -24, 86, -12);
-        ctx.bezierCurveTo(96, 2, 82, 20, 0, 20);
-        ctx.bezierCurveTo(-82, 20, -96, 2, -86, -12);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.strokeStyle = 'rgba(255, 130, 120, 0.5)';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.moveTo(-78, -9);
-        ctx.quadraticCurveTo(0, -19, 78, -9);
-        ctx.stroke();
-
-        ctx.strokeStyle = '#6b0400';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(-84, 3);
-        ctx.bezierCurveTo(-74, 19, 74, 19, 84, 3);
-        ctx.stroke();
-
-        // 4. Flat-bottomed white dome emblem badge
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
-        ctx.beginPath();
-        ctx.moveTo(-36, -15);
-        ctx.bezierCurveTo(-42, -55, 42, -55, 36, -15);
-        ctx.quadraticCurveTo(0, -11, -36, -15);
-        ctx.fill();
-
-        const badgeGrad = ctx.createLinearGradient(0, -54, 0, -14);
-        badgeGrad.addColorStop(0, '#ffffff');
-        badgeGrad.addColorStop(1, '#e6e8ec');
-        ctx.fillStyle = badgeGrad;
-        ctx.beginPath();
-        ctx.moveTo(-35, -17);
-        ctx.bezierCurveTo(-41, -56, 41, -56, 35, -17);
-        ctx.quadraticCurveTo(0, -13, -35, -17);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.strokeStyle = '#c4c8d0';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        // 5. Splayed red "M" inside the white badge
-        ctx.fillStyle = '#e81e12';
-        ctx.beginPath();
-        ctx.moveTo(-24, -22);
-        ctx.lineTo(-15, -45);
-        ctx.lineTo(-8, -45);
-        ctx.lineTo(0, -32);
-        ctx.lineTo(8, -45);
-        ctx.lineTo(15, -45);
-        ctx.lineTo(24, -22);
-        ctx.lineTo(16, -22);
-        ctx.lineTo(11, -35);
-        ctx.lineTo(0, -22);
-        ctx.lineTo(-11, -35);
-        ctx.lineTo(-16, -22);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.restore();
-    }
-
-    function drawSideF(x, y, dir, scale) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.scale(dir * scale, scale);
-
-        ctx.shadowColor = '#a855f7';
-        ctx.shadowBlur = 18;
-
-        ctx.fillStyle = '#09090b';
-        ctx.strokeStyle = '#6b21a8';
-        ctx.lineWidth = 3;
-
-        ctx.beginPath();
-        ctx.moveTo(-22, -65);
-        ctx.lineTo(35, -65);
-        ctx.lineTo(35, -42);
-        ctx.lineTo(2, -42);
-        ctx.lineTo(2, -12);
-        ctx.lineTo(28, -12);
-        ctx.lineTo(28, 10);
-        ctx.lineTo(2, 10);
-        ctx.lineTo(2, 65);
-        ctx.lineTo(-22, 65);
-        ctx.closePath();
-
-        ctx.fill();
-        ctx.stroke();
-        ctx.restore();
-    }
-
-    function drawShockwave(cx, cy, progress) {
-        if (progress <= 0 || progress >= 1) return;
-        ctx.save();
-        const radius = 50 + progress * 420;
-        ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(216, 180, 254, ${(1 - progress) * 0.9})`;
-        ctx.lineWidth = 16 * (1 - progress);
-        ctx.stroke();
-        ctx.restore();
-    }
-
-    function drawCinematicVignette() {
-        const vig = ctx.createRadialGradient(
-            canvas.width / 2, canvas.height / 2, canvas.width * 0.3,
-            canvas.width / 2, canvas.height / 2, canvas.width * 0.72
-        );
-        vig.addColorStop(0, 'rgba(0, 0, 0, 0)');
-        vig.addColorStop(1, 'rgba(4, 1, 12, 0.65)');
-        ctx.fillStyle = vig;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-
-    let lastFrameTime = 0;
-    const PLAYBACK_SPEED = 0.75;
-    const LOADING_DURATION = 7.0; // 7-second loading screen after the reveal
-
-    function drawLoadingScreen(loadElapsed, dt) {
-        const bgGrad = ctx.createRadialGradient(
-            canvas.width / 2, canvas.height / 2, 40,
-            canvas.width / 2, canvas.height / 2, canvas.width * 0.75
-        );
-        bgGrad.addColorStop(0, '#1e0847');
-        bgGrad.addColorStop(1, '#070112');
-        ctx.fillStyle = bgGrad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Subtle tech grid lines
-        ctx.save();
-        ctx.strokeStyle = 'rgba(168, 85, 247, 0.08)';
-        ctx.lineWidth = 1;
-        const gridSize = 48;
-        const offset = (loadElapsed * 25) % gridSize;
-        for (let x = offset; x < canvas.width; x += gridSize) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
-        }
-        for (let y = offset; y < canvas.height; y += gridSize) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
-        ctx.restore();
-
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-        const progress = Math.min(1, loadElapsed / LOADING_DURATION);
-
-        const barW = 460;
-        const barH = 22;
-        const barX = cx - barW / 2;
-        const barY = cy + 25;
-
-        // Spinning mini energy ring above text
-        ctx.save();
-        ctx.translate(cx, cy - 75);
-        ctx.rotate(loadElapsed * 3);
-        ctx.strokeStyle = '#a855f7';
-        ctx.lineWidth = 4;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.arc(0, 0, 24, 0, Math.PI * 1.4);
-        ctx.stroke();
-
-        ctx.rotate(-loadElapsed * 5.5);
-        ctx.strokeStyle = '#38bdf8';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.arc(0, 0, 15, 0, Math.PI * 1.2);
-        ctx.stroke();
-        ctx.restore();
-
-        // "LOADING..." label with animated dots
-        const dotCount = Math.floor(loadElapsed * 2.5) % 4;
-        const dots = '.'.repeat(dotCount);
-        ctx.save();
-        ctx.font = '800 26px "Segoe UI", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#f3e8ff';
-        ctx.shadowColor = 'rgba(168, 85, 247, 0.6)';
-        ctx.shadowBlur = 12;
-        ctx.fillText(`LOADING${dots}`, cx, cy - 18);
-        ctx.restore();
-
-        // Progress bar outer container
-        ctx.save();
-        ctx.fillStyle = 'rgba(15, 5, 35, 0.9)';
-        ctx.strokeStyle = 'rgba(192, 132, 252, 0.45)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(barX, barY, barW, barH, 11);
-        ctx.fill();
-        ctx.stroke();
-
-        // Progress bar inner fill
-        const fillW = Math.max(12, (barW - 8) * progress);
-        const fillGrad = ctx.createLinearGradient(barX, 0, barX + barW, 0);
-        fillGrad.addColorStop(0, '#7c3aed');
-        fillGrad.addColorStop(0.5, '#c084fc');
-        fillGrad.addColorStop(1, '#38bdf8');
-
-        ctx.fillStyle = fillGrad;
-        ctx.shadowColor = '#a855f7';
-        ctx.shadowBlur = 14;
-        ctx.beginPath();
-        ctx.roundRect(barX + 4, barY + 4, fillW, barH - 8, 7);
-        ctx.fill();
-        ctx.restore();
-
-        // Percentage readout
-        ctx.save();
-        ctx.font = '700 16px "Segoe UI", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#c4b5fd';
-        ctx.fillText(`${Math.floor(progress * 100)}%`, cx, barY + 52);
-        ctx.restore();
-
-        if (loadElapsed < 0.4) {
-            const fadeAlpha = 1 - (loadElapsed / 0.4);
-            ctx.fillStyle = `rgba(8, 1, 23, ${fadeAlpha})`;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-
-        drawCinematicVignette();
-    }
-
-    function render(timestamp) {
-        if (!startTime) {
-            startTime = timestamp;
-            lastFrameTime = timestamp;
-        }
-
-        const rawDt = (timestamp - lastFrameTime) / 1000;
-        lastFrameTime = timestamp;
-        const rawElapsed = (timestamp - startTime) / 1000;
-
-        const dt = rawDt * PLAYBACK_SPEED;
-        const elapsed = rawElapsed * PLAYBACK_SPEED;
-
-        const REVEAL_END_TIME = 7.6;
-        if (elapsed >= REVEAL_END_TIME) {
-            const loadElapsed = (elapsed - REVEAL_END_TIME) / PLAYBACK_SPEED;
-            drawLoadingScreen(loadElapsed, rawDt);
-            animationFrameId = requestAnimationFrame(render);
-            return;
-        }
-
-        // Dynamic YouTube-style camera zoom & impact punch
-        let camZoom = 1.04 - Math.min(0.04, elapsed * 0.006);
-        let shakeX = 0;
-        let shakeY = 0;
-
-        if (elapsed > 2.6 && elapsed < 3.15) {
-            const intensity = 18 * (1 - (elapsed - 2.6) / 0.55);
-            shakeX = (Math.random() - 0.5) * intensity;
-            shakeY = (Math.random() - 0.5) * intensity;
-            camZoom += 0.03 * (1 - (elapsed - 2.6) / 0.55);
-        }
-
-        ctx.save();
-        ctx.translate(canvas.width / 2 + shakeX, canvas.height / 2 + shakeY);
-        ctx.scale(camZoom, camZoom);
-        ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
-        // 1. Background & Floating Embers
-        drawBackground(dt, elapsed);
-
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2 + 30;
-
-        // =====================================================================
-        // PHASE 1: Plain Creeper Assembles -> Swells & Flashes -> Explodes Away
-        // =====================================================================
-        const fuseStart = 1.3;
-        const explodeStart = 2.6;
-        const explodeEnd = 3.9;
-
-        if (elapsed < explodeEnd) {
-            let swellScale = 1;
-            let flashAmount = 0;
-
-            if (elapsed >= fuseStart && elapsed < explodeStart) {
-                const fuseProgress = (elapsed - fuseStart) / (explodeStart - fuseStart);
-                swellScale = 1 + Math.pow(fuseProgress, 2.2) * 0.24;
-                const pulseFreq = 6 + fuseProgress * 18;
-                flashAmount = (Math.sin(fuseProgress * pulseFreq * Math.PI) + 1) * 0.5 * (0.4 + fuseProgress * 0.6);
-            }
-
-            const isExploding = elapsed >= explodeStart;
-            const expTime = elapsed - explodeStart;
-            const expProgress = isExploding ? Math.min(1, expTime / (explodeEnd - explodeStart)) : 0;
-
-            ctx.save();
-            ctx.translate(centerX, centerY);
-            ctx.scale(swellScale, swellScale);
-            ctx.translate(-centerX, -centerY);
-
-            blocks.forEach(b => {
-                let drawX = b.targetX;
-                let drawY = b.targetY;
-                let blockScale = 1;
-                let blockAlpha = 1;
-                let rotation = 0;
-
-                if (elapsed < 1.2) {
-                    const t = Math.max(0, Math.min(1, (elapsed - b.delay) / 0.75));
-                    const ease = easeOutBack(t);
-                    drawX = b.startX + (b.targetX - b.startX) * ease;
-                    drawY = b.startY + (b.targetY - b.startY) * ease;
-                } else if (isExploding) {
-                    drawX = b.targetX + b.vx * expTime;
-                    drawY = b.targetY + b.vy * expTime + 0.5 * 550 * expTime * expTime;
-                    blockScale = Math.max(0, 1 - Math.pow(expProgress, 1.3));
-                    blockAlpha = Math.max(0, 1 - Math.pow(expProgress, 1.5));
-                    rotation = b.rotSpeed * expTime;
-                }
-
-                if (blockAlpha > 0.01 && blockScale > 0.01) {
-                    ctx.save();
-                    ctx.globalAlpha = blockAlpha;
-                    ctx.translate(drawX + b.size / 2, drawY + b.size / 2);
-                    ctx.rotate(rotation);
-                    ctx.scale(blockScale, blockScale);
-
-                    ctx.fillStyle = b.color;
-                    ctx.fillRect(-b.size / 2, -b.size / 2, b.size + 0.5, b.size + 0.5);
-
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-                    ctx.fillRect(-b.size / 2, -b.size / 2, b.size, 3);
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.22)';
-                    ctx.lineWidth = 1;
-                    ctx.strokeRect(-b.size / 2 + 0.5, -b.size / 2 + 0.5, b.size - 1, b.size - 1);
-
-                    if (flashAmount > 0.01) {
-                        ctx.fillStyle = `rgba(255, 255, 255, ${flashAmount})`;
-                        ctx.fillRect(-b.size / 2, -b.size / 2, b.size, b.size);
-                    }
-
-                    ctx.restore();
-                }
-            });
-
-            if (elapsed > 1.1 && !isExploding) {
-                const borderAlpha = Math.min(1, (elapsed - 1.1) / 0.3);
-                ctx.save();
-                ctx.globalAlpha = borderAlpha;
-                ctx.strokeStyle = '#052e16';
-                ctx.lineWidth = 4;
-                ctx.strokeRect(centerX - 88, centerY - 88, 176, 176);
-                ctx.restore();
-            }
-
-            ctx.restore();
-        }
-
-        if (elapsed >= 2.6 && elapsed <= 3.5) {
-            drawShockwave(centerX, centerY, (elapsed - 2.6) / 0.9);
-        }
-
-        // =====================================================================
-        // PHASE 2: Smooth Reveal of Full Logo + Rotating Energy Halo
-        // =====================================================================
-        const revealStart = 3.1;
-        if (elapsed >= revealStart) {
-            const revealProgress = Math.min(1, (elapsed - revealStart) / 1.6);
-            const smoothReveal = 1 - Math.pow(1 - revealProgress, 3);
-            const logoScale = 0.88 + smoothReveal * 0.12;
-
-            drawTechHalo(centerX, centerY - 10, elapsed, smoothReveal);
-
-            ctx.save();
-            ctx.globalAlpha = smoothReveal;
-            ctx.translate(centerX, centerY);
-            ctx.scale(logoScale, logoScale);
-            ctx.translate(-centerX, -centerY);
-
-            blocks.forEach(b => {
-                ctx.fillStyle = b.color;
-                ctx.fillRect(b.targetX, b.targetY, b.size + 0.5, b.size + 0.5);
-
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-                ctx.fillRect(b.targetX, b.targetY, b.size, 3);
-                ctx.strokeStyle = 'rgba(0, 0, 0, 0.22)';
-                ctx.lineWidth = 1;
-                ctx.strokeRect(b.targetX + 0.5, b.targetY + 0.5, b.size - 1, b.size - 1);
-            });
-
-            ctx.strokeStyle = '#052e16';
-            ctx.lineWidth = 4;
-            ctx.strokeRect(centerX - 88, centerY - 88, 176, 176);
-
-            drawSideF(centerX - 135, centerY + 10, -1, 1);
-            drawSideF(centerX + 135, centerY + 10, 1, 1);
-            drawMarioHat(centerX, centerY - 82, 1.05);
-
-            ctx.restore();
-        }
-
-        // =====================================================================
-        // DUST / SMOKE CLOUDS
-        // =====================================================================
-        if (elapsed >= 2.6 && elapsed <= 5.2) {
-            const dustAge = elapsed - 2.6;
-            let dustOpacity = 1;
-            if (dustAge < 0.25) {
-                dustOpacity = dustAge / 0.25;
-            } else if (dustAge > 0.7) {
-                dustOpacity = Math.max(0, 1 - (dustAge - 0.7) / 1.9);
-            }
-
-            ctx.save();
-            smokeParticles.forEach(p => {
-                const px = p.baseX + p.vx * dustAge;
-                const py = p.baseY + p.vy * dustAge;
-                const r = p.radius + dustAge * 35;
-
-                const grad = ctx.createRadialGradient(px, py, r * 0.1, px, py, r);
-                grad.addColorStop(0, `${p.shade} ${dustOpacity * 0.85})`);
-                grad.addColorStop(0.6, `${p.shade} ${dustOpacity * 0.45})`);
-                grad.addColorStop(1, `${p.shade} 0)`);
-
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(px, py, r, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            ctx.restore();
-        }
-
-        // =====================================================================
-        // PHASE 3: Sleek YouTube-Style Title ("Mini", "Mor", "Fics") + Light Sweep
-        // =====================================================================
-        const titleY = 132;
-        ctx.save();
-        ctx.font = '900 84px "Arial Black", "Impact", "Segoe UI", sans-serif';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-
-        const fullTitle = 'MiniMorFics';
-        const totalWidth = ctx.measureText(fullTitle).width;
-        const startTitleX = centerX - totalWidth / 2;
-
-        const targetMiniX = startTitleX;
-        const targetMorX = startTitleX + ctx.measureText('Mini').width;
-        const targetFicsX = startTitleX + ctx.measureText('MiniMor').width;
-
-        const textGrad = ctx.createLinearGradient(0, titleY - 40, 0, titleY + 40);
-        textGrad.addColorStop(0, '#ff9a76');
-        textGrad.addColorStop(0.45, '#ff5e62');
-        textGrad.addColorStop(1, '#c92a56');
-
-        function drawTitleSegment(text, x, y, alpha) {
-            if (alpha <= 0.01) return;
-            ctx.save();
-            ctx.globalAlpha = alpha;
-            ctx.lineJoin = 'round';
-            ctx.miterLimit = 2;
-
-            ctx.fillStyle = '#0c021c';
-            ctx.fillText(text, x + 5, y + 6);
-
-            ctx.shadowColor = 'rgba(192, 132, 252, 0.65)';
-            ctx.shadowBlur = 16;
-            ctx.lineWidth = 9;
-            ctx.strokeStyle = '#180533';
-            ctx.strokeText(text, x, y);
-
-            ctx.shadowBlur = 0;
-            ctx.fillStyle = textGrad;
-            ctx.fillText(text, x, y);
-
-            ctx.restore();
-        }
-
-        if (elapsed >= 4.5) {
-            const p = Math.min(1, (elapsed - 4.5) / 0.65);
-            const ease = easeOutBack(p);
-            const curX = -260 + (targetMiniX - (-260)) * ease;
-            drawTitleSegment('Mini', curX, titleY, Math.min(1, p * 2));
-        }
-
-        if (elapsed >= 4.95) {
-            const p = Math.min(1, (elapsed - 4.95) / 0.65);
-            const ease = easeOutBack(p);
-            const curY = -110 + (titleY - (-110)) * ease;
-            drawTitleSegment('Mor', targetMorX, curY, Math.min(1, p * 2));
-        }
-
-        if (elapsed >= 5.4) {
-            const p = Math.min(1, (elapsed - 5.4) / 0.65);
-            const ease = easeOutBack(p);
-            const curX = (canvas.width + 260) + (targetFicsX - (canvas.width + 260)) * ease;
-            drawTitleSegment('Fics', curX, titleY, Math.min(1, p * 2));
-        }
-
-        if (elapsed >= 6.1 && elapsed <= 7.1) {
-            const sweepP = (elapsed - 6.1) / 1.0;
-            const sweepX = startTitleX - 80 + sweepP * (totalWidth + 160);
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.rect(startTitleX - 10, titleY - 50, totalWidth + 20, 100);
-            ctx.clip();
-
-            const shineGrad = ctx.createLinearGradient(sweepX - 45, 0, sweepX + 45, 0);
-            shineGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-            shineGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.65)');
-            shineGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-            ctx.globalCompositeOperation = 'source-atop';
-            ctx.fillStyle = shineGrad;
-            ctx.fillRect(sweepX - 50, titleY - 50, 100, 100);
-            ctx.restore();
-        }
-
-        ctx.restore();
-
-        if (elapsed >= 2.6 && elapsed <= 2.95) {
-            const flashAlpha = Math.max(0, 0.85 * (1 - (elapsed - 2.6) / 0.35));
-            ctx.fillStyle = `rgba(255, 255, 255, ${flashAlpha})`;
-            ctx.fillRect(-20, -20, canvas.width + 40, canvas.height + 40);
-        }
-
-        ctx.restore();
-        drawCinematicVignette();
-
-        animationFrameId = requestAnimationFrame(render);
-    }
-
-    window.onload = () => {
-        initBlocks();
-        animationFrameId = requestAnimationFrame(render);
-    };
-</script>
-
-</body>
-</html>
-  </script>
-</body>
-</html>
-"""
-
-components.html(intro_html, height=410)
-
+  }
+
+  function easeOutBack(x) {
+    const c1 = 1.70158;
+    const c3 = c1 + 1;
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+  }
+
+  function drawBackground(dt, elapsed) {
+    const grad = ctx.createRadialGradient(
+      canvas.width * 0.5, canvas.height * 0.45, 50,
+      canvas.width * 0.5, canvas.height * 0.5, canvas.width * 0.85
+    );
+    grad.addColorStop(0, '#320d75');
+    grad.addColorStop(0.5, '#190642');
+    grad.addColorStop(1, '#080117');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Diagonal light streaks
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate(-Math.PI / 5);
+    ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+    streaks.forEach(s => {
+      s.x += s.speed * dt;
+      if (s.x > canvas.width + 300) {
+        s.x = -300;
+        s.y = Math.random() * canvas.height * 1.5 - 200;
+      }
+      const streakGrad = ctx.createLinearGradient(s.x, s.y, s.x + s.length, s.y);
+      streakGrad.addColorStop(0, 'rgba(255,255,255,0)');
+      streakGrad.addColorStop(0.5, s.color);
+      streakGrad.addColorStop(1, 'rgba(255,255,255,0)');
+
+      ctx.fillStyle = streakGrad;
+      ctx.fillRect(s.x, s.y, s.length, s.width);
+    });
+    ctx.restore();
+
+    // Floating glowing embers
+    ctx.save();
+    embers.forEach(e => {
+      e.y += e.speedY * dt;
+      e.x += Math.sin(elapsed * 2 + e.drift) * 18 * dt;
+      if (e.y < -10) {
+        e.y = canvas.height + 10;
+        e.x = Math.random() * canvas.width;
+      }
+      ctx.fillStyle = e.color;
+      ctx.shadowColor = e.color;
+      ctx.shadowBlur = 10;
+      ctx.globalAlpha = 0.65;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  function drawTechHalo(cx, cy, elapsed, alpha) {
+    if (alpha <= 0.01) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(cx, cy);
+
+    // Ambient radial aura behind the mascot
+    const aura = ctx.createRadialGradient(0, 0, 30, 0, 0, 260);
+    aura.addColorStop(0, 'rgba(168, 85, 247, 0.35)');
+    aura.addColorStop(0.6, 'rgba(56, 189, 248, 0.12)');
+    aura.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(0, 0, 260, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Outer rotating dashed energy ring
+    ctx.save();
+    ctx.rotate(elapsed * 0.45);
+    ctx.strokeStyle = 'rgba(192, 132, 252, 0.35)';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([28, 18, 8, 18]);
+    ctx.beginPath();
+    ctx.arc(0, 0, 205, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    // Inner counter-rotating cyan arc ring
+    ctx.save();
+    ctx.rotate(-elapsed * 0.7);
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([65, 45]);
+    ctx.beginPath();
+    ctx.arc(0, 0, 182, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  function drawMarioHat(cx, cy, scale) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(scale, scale);
+
+    // 1. Cast shadow onto the Creeper's forehead beneath the visor
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.38)';
+    ctx.beginPath();
+    ctx.ellipse(0, 12, 82, 16, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. Wide, puffy mushroom-like red crown
+    const crownGrad = ctx.createRadialGradient(-18, -58, 12, 0, -36, 125);
+    crownGrad.addColorStop(0, '#ff5947');
+    crownGrad.addColorStop(0.45, '#e81e12');
+    crownGrad.addColorStop(0.85, '#b80c04');
+    crownGrad.addColorStop(1, '#850600');
+
+    ctx.fillStyle = crownGrad;
+    ctx.beginPath();
+    ctx.moveTo(-88, -10);
+    ctx.bezierCurveTo(-132, -32, -108, -98, 0, -98);
+    ctx.bezierCurveTo(108, -98, 132, -32, 88, -10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Soft rim light on top edge of the crown
+    ctx.strokeStyle = 'rgba(255, 195, 185, 0.45)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-78, -52);
+    ctx.bezierCurveTo(-50, -93, 50, -93, 78, -52);
+    ctx.stroke();
+
+    // 3. Narrower, curved front visor / brim
+    const brimGrad = ctx.createLinearGradient(0, -14, 0, 22);
+    brimGrad.addColorStop(0, '#ff3b2f');
+    brimGrad.addColorStop(0.65, '#d61308');
+    brimGrad.addColorStop(1, '#8f0700');
+
+    ctx.fillStyle = brimGrad;
+    ctx.beginPath();
+    ctx.moveTo(-86, -12);
+    ctx.quadraticCurveTo(0, -24, 86, -12);
+    ctx.bezierCurveTo(96, 2, 82, 20, 0, 20);
+    ctx.bezierCurveTo(-82, 20, -96, 2, -86, -12);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255, 130, 120, 0.5)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(-78, -9);
+    ctx.quadraticCurveTo(0, -19, 78, -9);
+    ctx.stroke();
+
+    ctx.strokeStyle = '#6b0400';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-84, 3);
+    ctx.bezierCurveTo(-74, 19, 74, 19, 84, 3);
+    ctx.stroke();
+
+    // 4. Flat-bottomed white dome emblem badge
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+    ctx.beginPath();
+    ctx.moveTo(-36, -15);
+    ctx.bezierCurveTo(-42, -55, 42, -55, 36, -15);
+    ctx.quadraticCurveTo(0, -11, -36, -15);
+    ctx.fill();
+
+    const badgeGrad = ctx.createLinearGradient(0, -54, 0, -14);
+    badgeGrad.addColorStop(0, '#ffffff');
+    badgeGrad.addColorStop(1, '#e6e8ec');
+
+    ctx.fillStyle = badgeGrad;
+    ctx.beginPath();
+    ctx.moveTo(-35, -17);
+    ctx.bezierCurveTo(-41, -56, 41, -56, 35, -17);
+    ctx.quadraticCurveTo(0, -13, -35, -17);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = '#c4c8d0';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // 5. Splayed red "M" inside the white badge
+    ctx.fillStyle = '#e81e12';
+    ctx.beginPath();
+    ctx.moveTo(-24, -22);
+    ctx.lineTo(-15, -45);
+    ctx.lineTo(-8, -45);
+    ctx.lineTo(0, -32);
+    ctx.lineTo(8, -45);
+    ctx.lineTo(15, -45);
+    ctx.lineTo(24, -22);
+    ctx.lineTo(16, -22);
+    ctx.lineTo(11, -35);
+    ctx.lineTo(0, -22);
+    ctx.lineTo(-11, -35);
 
 
 
