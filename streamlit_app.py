@@ -412,7 +412,7 @@ def evaluate_expression(expr_to_eval=None):
 
 # Custom CSS styling to link the input bar and result tightly with clear visibility
 st.markdown("""
-    <style>
+<style>
     div[data-testid="stMetric"] {
         background-color: #f1f3f4;
         border-radius: 0 0 8px 8px;
