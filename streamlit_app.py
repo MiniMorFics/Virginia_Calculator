@@ -24,18 +24,34 @@ if "intro_done" not in st.session_state:
     st.session_state.intro_done = False
 
 if not st.session_state.intro_done:
-    # Make the HTML component cover the entire screen (fullscreen)
+    # Fullscreen lock ONLY while intro is playing
     st.markdown(
         """
         <style>
-        iframe[title="streamlit.components.v1.html"] {
+        html, body, [data-testid="stAppViewContainer"] {
+            overflow: hidden !important;
+        }
+        iframe {
             position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
+            inset: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
             z-index: 999999 !important;
             border: none !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    # Center and narrow the calculator AFTER the intro finishes
+    st.markdown(
+        """
+        <style>
+        .block-container {
+            max-width: 750px !important;
+            padding-top: 2rem !important;
+            margin: 0 auto !important;
         }
         </style>
         """,
@@ -872,7 +888,7 @@ canvas.height = window.innerHeight;
 </html>
     """
 
-    components.html(intro_html, width=3000, height=1500)
+    components.html(intro_html, height=800)
 
     # Set this to match how many seconds your HTML intro lasts
     time.sleep(18.5)
